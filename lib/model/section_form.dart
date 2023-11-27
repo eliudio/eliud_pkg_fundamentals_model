@@ -13,22 +13,22 @@
 
 */
 
-import 'package:eliud_core_model/model/app_model.dart';
-import 'package:eliud_core/core/blocs/access/state/access_state.dart';
-import 'package:eliud_core/core/blocs/access/access_bloc.dart';
+import 'package:eliud_core_main/model/app_model.dart';
 import '../tools/bespoke_models.dart';
-import 'package:eliud_core/core/navigate/router.dart' as eliudrouter;
-import 'package:eliud_core/tools/screen_size.dart';
+import 'package:eliud_core_main/apis/action_api/action_model.dart';
+
+import 'package:eliud_core_main/apis/apis.dart';
+
+import 'package:eliud_core_helpers/etc/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:eliud_core_model/style/style_registry.dart';
-
-import 'package:eliud_core/model/internal_component.dart';
+import 'package:eliud_core_main/apis/style/style_registry.dart';
+import 'package:eliud_core_main/model/internal_component.dart';
 import 'package:eliud_pkg_fundamentals_model/model/embedded_component.dart';
 
-import 'package:eliud_core/tools/enums.dart';
+import 'package:eliud_core_helpers/etc/enums.dart';
 
-import 'package:eliud_core/model/model_export.dart';
+import 'package:eliud_core_main/model/model_export.dart';
 import 'package:eliud_pkg_fundamentals_model/model/model_export.dart';
 
 import 'package:eliud_pkg_fundamentals_model/model/section_list_bloc.dart';
@@ -132,7 +132,6 @@ class _MySectionFormState extends State<_MySectionForm> {
 
   @override
   Widget build(BuildContext context) {
-    var accessState = AccessBloc.getState(context);
     return BlocBuilder<SectionFormBloc, SectionFormState>(
         builder: (context, state) {
       if (state is SectionFormUninitialized) {
@@ -181,7 +180,7 @@ class _MySectionFormState extends State<_MySectionForm> {
             .textFormField(widget.app, context,
                 labelText: 'Title',
                 icon: Icons.text_format,
-                readOnly: _readOnly(accessState, state),
+                readOnly: _readOnly(context, state),
                 textEditingController: _titleController,
                 keyboardType: TextInputType.text,
                 validator: (_) =>
@@ -194,7 +193,7 @@ class _MySectionFormState extends State<_MySectionForm> {
             .textFormField(widget.app, context,
                 labelText: 'Description',
                 icon: Icons.text_format,
-                readOnly: _readOnly(accessState, state),
+                readOnly: _readOnly(context, state),
                 textEditingController: _descriptionController,
                 keyboardType: TextInputType.text,
                 validator: (_) =>
@@ -207,7 +206,7 @@ class _MySectionFormState extends State<_MySectionForm> {
             .textFormField(widget.app, context,
                 labelText: 'Image Width (% of screen width)',
                 icon: Icons.text_format,
-                readOnly: _readOnly(accessState, state),
+                readOnly: _readOnly(context, state),
                 textEditingController: _imageWidthController,
                 keyboardType: TextInputType.number,
                 validator: (_) =>
@@ -262,7 +261,9 @@ class _MySectionFormState extends State<_MySectionForm> {
                 _imagePositionRelativeSelectedRadioTile,
                 'behind',
                 'behind',
-                !accessState.memberIsOwner(widget.app.documentID)
+                !Apis.apis()
+                        .getCoreApi()
+                        .memberIsOwner(context, widget.app.documentID)
                     ? null
                     : (dynamic val) => setSelectionImagePositionRelative(val)));
         children.add(StyleRegistry.registry()
@@ -275,7 +276,9 @@ class _MySectionFormState extends State<_MySectionForm> {
                 _imagePositionRelativeSelectedRadioTile,
                 'inFront',
                 'inFront',
-                !accessState.memberIsOwner(widget.app.documentID)
+                !Apis.apis()
+                        .getCoreApi()
+                        .memberIsOwner(context, widget.app.documentID)
                     ? null
                     : (dynamic val) => setSelectionImagePositionRelative(val)));
         children.add(StyleRegistry.registry()
@@ -288,7 +291,9 @@ class _MySectionFormState extends State<_MySectionForm> {
                 _imagePositionRelativeSelectedRadioTile,
                 'below',
                 'below',
-                !accessState.memberIsOwner(widget.app.documentID)
+                !Apis.apis()
+                        .getCoreApi()
+                        .memberIsOwner(context, widget.app.documentID)
                     ? null
                     : (dynamic val) => setSelectionImagePositionRelative(val)));
         children.add(StyleRegistry.registry()
@@ -301,7 +306,9 @@ class _MySectionFormState extends State<_MySectionForm> {
                 _imagePositionRelativeSelectedRadioTile,
                 'Above',
                 'Above',
-                !accessState.memberIsOwner(widget.app.documentID)
+                !Apis.apis()
+                        .getCoreApi()
+                        .memberIsOwner(context, widget.app.documentID)
                     ? null
                     : (dynamic val) => setSelectionImagePositionRelative(val)));
         children.add(StyleRegistry.registry()
@@ -314,7 +321,9 @@ class _MySectionFormState extends State<_MySectionForm> {
                 _imagePositionRelativeSelectedRadioTile,
                 'Aside',
                 'Aside',
-                !accessState.memberIsOwner(widget.app.documentID)
+                !Apis.apis()
+                        .getCoreApi()
+                        .memberIsOwner(context, widget.app.documentID)
                     ? null
                     : (dynamic val) => setSelectionImagePositionRelative(val)));
 
@@ -342,7 +351,9 @@ class _MySectionFormState extends State<_MySectionForm> {
                 _imageAlignmentSelectedRadioTile,
                 'left',
                 'left',
-                !accessState.memberIsOwner(widget.app.documentID)
+                !Apis.apis()
+                        .getCoreApi()
+                        .memberIsOwner(context, widget.app.documentID)
                     ? null
                     : (dynamic val) => setSelectionImageAlignment(val)));
         children.add(StyleRegistry.registry()
@@ -355,7 +366,9 @@ class _MySectionFormState extends State<_MySectionForm> {
                 _imageAlignmentSelectedRadioTile,
                 'center',
                 'center',
-                !accessState.memberIsOwner(widget.app.documentID)
+                !Apis.apis()
+                        .getCoreApi()
+                        .memberIsOwner(context, widget.app.documentID)
                     ? null
                     : (dynamic val) => setSelectionImageAlignment(val)));
         children.add(StyleRegistry.registry()
@@ -368,7 +381,9 @@ class _MySectionFormState extends State<_MySectionForm> {
                 _imageAlignmentSelectedRadioTile,
                 'right',
                 'right',
-                !accessState.memberIsOwner(widget.app.documentID)
+                !Apis.apis()
+                        .getCoreApi()
+                        .memberIsOwner(context, widget.app.documentID)
                     ? null
                     : (dynamic val) => setSelectionImageAlignment(val)));
 
@@ -406,7 +421,7 @@ class _MySectionFormState extends State<_MySectionForm> {
                 widget.app,
                 context,
                 label: 'Submit',
-                onPressed: _readOnly(accessState, state)
+                onPressed: _readOnly(context, state)
                     ? null
                     : () {
                         if (state is SectionFormError) {
@@ -442,8 +457,9 @@ class _MySectionFormState extends State<_MySectionForm> {
                             )));
                           }
                           if (widget.submitAction != null) {
-                            eliudrouter.Router.navigateTo(
-                                context, widget.submitAction!);
+                            Apis.apis()
+                                .getRouterApi()
+                                .navigateTo(context, widget.submitAction!);
                           } else {
                             Navigator.pop(context);
                           }
@@ -530,9 +546,11 @@ class _MySectionFormState extends State<_MySectionForm> {
   }
 
   /// Is the form read-only?
-  bool _readOnly(AccessState accessState, SectionFormInitialized state) {
+  bool _readOnly(BuildContext context, SectionFormInitialized state) {
     return (formAction == FormAction.showData) ||
         (formAction == FormAction.showPreloadedData) ||
-        (!accessState.memberIsOwner(widget.app.documentID));
+        (!Apis.apis()
+            .getCoreApi()
+            .memberIsOwner(context, widget.app.documentID));
   }
 }

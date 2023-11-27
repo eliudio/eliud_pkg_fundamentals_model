@@ -14,10 +14,10 @@
 */
 
 import '../model/internal_component.dart';
-import 'package:eliud_core/core/registry.dart';
-import 'package:eliud_core_model/tools/component/component_spec.dart';
+import 'package:eliud_core_main/apis/registryapi/component/component_spec.dart';
 import 'abstract_repository_singleton.dart';
-import 'package:eliud_core/tools/component/component_constructor.dart';
+import 'package:eliud_core_main/apis/registryapi/component/component_constructor.dart';
+import 'package:eliud_core_main/apis/apis.dart';
 
 import 'booklet_component_selector.dart';
 import 'decorated_content_component_selector.dart';
@@ -62,7 +62,9 @@ class ComponentRegistry {
     ComponentConstructor tutorialComponentConstructorDefault,
     ComponentEditorConstructor tutorialComponentEditorConstructor,
   ) {
-    Apis.apis().addInternalComponents('eliud_pkg_fundamentals_model', [
+    Apis.apis()
+        .getRegistryApi()
+        .addInternalComponents('eliud_pkg_fundamentals_model', [
       "booklets",
       "decoratedContents",
       "dividers",
@@ -76,65 +78,74 @@ class ComponentRegistry {
       "tutorials",
     ]);
 
-    Apis.apis().register(
+    Apis.apis().getRegistryApi().register(
         componentName: "eliud_pkg_fundamentals_model_internalWidgets",
         componentConstructor: ListComponentFactory());
     Apis.apis()
+        .getRegistryApi()
         .addDropDownSupporter("booklets", DropdownButtonComponentFactory());
-    Apis.apis().register(
+    Apis.apis().getRegistryApi().register(
         componentName: "booklets",
         componentConstructor: bookletComponentConstructorDefault);
-    Apis.apis().addDropDownSupporter(
+    Apis.apis().getRegistryApi().addDropDownSupporter(
         "decoratedContents", DropdownButtonComponentFactory());
-    Apis.apis().register(
+    Apis.apis().getRegistryApi().register(
         componentName: "decoratedContents",
         componentConstructor: decoratedContentComponentConstructorDefault);
     Apis.apis()
+        .getRegistryApi()
         .addDropDownSupporter("dividers", DropdownButtonComponentFactory());
-    Apis.apis().register(
+    Apis.apis().getRegistryApi().register(
         componentName: "dividers",
         componentConstructor: dividerComponentConstructorDefault);
     Apis.apis()
+        .getRegistryApi()
         .addDropDownSupporter("documents", DropdownButtonComponentFactory());
-    Apis.apis().register(
+    Apis.apis().getRegistryApi().register(
         componentName: "documents",
         componentConstructor: documentComponentConstructorDefault);
-    Apis.apis().addDropDownSupporter(
+    Apis.apis().getRegistryApi().addDropDownSupporter(
         "dynamicWidgets", DropdownButtonComponentFactory());
-    Apis.apis().register(
+    Apis.apis().getRegistryApi().register(
         componentName: "dynamicWidgets",
         componentConstructor: dynamicWidgetComponentConstructorDefault);
     Apis.apis()
+        .getRegistryApi()
         .addDropDownSupporter("faders", DropdownButtonComponentFactory());
-    Apis.apis().register(
+    Apis.apis().getRegistryApi().register(
         componentName: "faders",
         componentConstructor: faderComponentConstructorDefault);
     Apis.apis()
+        .getRegistryApi()
         .addDropDownSupporter("grids", DropdownButtonComponentFactory());
-    Apis.apis().register(
+    Apis.apis().getRegistryApi().register(
         componentName: "grids",
         componentConstructor: gridComponentConstructorDefault);
-    Apis.apis().addDropDownSupporter(
+    Apis.apis().getRegistryApi().addDropDownSupporter(
         "presentations", DropdownButtonComponentFactory());
-    Apis.apis().register(
+    Apis.apis().getRegistryApi().register(
         componentName: "presentations",
         componentConstructor: presentationComponentConstructorDefault);
     Apis.apis()
+        .getRegistryApi()
         .addDropDownSupporter("simpleImages", DropdownButtonComponentFactory());
-    Apis.apis().register(
+    Apis.apis().getRegistryApi().register(
         componentName: "simpleImages",
         componentConstructor: simpleImageComponentConstructorDefault);
     Apis.apis()
+        .getRegistryApi()
         .addDropDownSupporter("simpleTexts", DropdownButtonComponentFactory());
-    Apis.apis().register(
+    Apis.apis().getRegistryApi().register(
         componentName: "simpleTexts",
         componentConstructor: simpleTextComponentConstructorDefault);
     Apis.apis()
+        .getRegistryApi()
         .addDropDownSupporter("tutorials", DropdownButtonComponentFactory());
-    Apis.apis().register(
+    Apis.apis().getRegistryApi().register(
         componentName: "tutorials",
         componentConstructor: tutorialComponentConstructorDefault);
     Apis.apis()
+        .getRegistryApi()
         .addComponentSpec('eliud_pkg_fundamentals_model', 'fundamentals', [
       ComponentSpec(
           'booklets',
@@ -203,47 +214,47 @@ class ComponentRegistry {
           tutorialComponentEditorConstructor,
           ({String? appId}) => tutorialRepository(appId: appId)!),
     ]);
-    Apis.apis().registerRetrieveRepository(
+    Apis.apis().getRegistryApi().registerRetrieveRepository(
         'eliud_pkg_fundamentals_model',
         'booklets',
         ({String? appId}) => bookletRepository(appId: appId)!);
-    Apis.apis().registerRetrieveRepository(
+    Apis.apis().getRegistryApi().registerRetrieveRepository(
         'eliud_pkg_fundamentals_model',
         'decoratedContents',
         ({String? appId}) => decoratedContentRepository(appId: appId)!);
-    Apis.apis().registerRetrieveRepository(
+    Apis.apis().getRegistryApi().registerRetrieveRepository(
         'eliud_pkg_fundamentals_model',
         'dividers',
         ({String? appId}) => dividerRepository(appId: appId)!);
-    Apis.apis().registerRetrieveRepository(
+    Apis.apis().getRegistryApi().registerRetrieveRepository(
         'eliud_pkg_fundamentals_model',
         'documents',
         ({String? appId}) => documentRepository(appId: appId)!);
-    Apis.apis().registerRetrieveRepository(
+    Apis.apis().getRegistryApi().registerRetrieveRepository(
         'eliud_pkg_fundamentals_model',
         'dynamicWidgets',
         ({String? appId}) => dynamicWidgetRepository(appId: appId)!);
-    Apis.apis().registerRetrieveRepository(
+    Apis.apis().getRegistryApi().registerRetrieveRepository(
         'eliud_pkg_fundamentals_model',
         'faders',
         ({String? appId}) => faderRepository(appId: appId)!);
-    Apis.apis().registerRetrieveRepository(
+    Apis.apis().getRegistryApi().registerRetrieveRepository(
         'eliud_pkg_fundamentals_model',
         'grids',
         ({String? appId}) => gridRepository(appId: appId)!);
-    Apis.apis().registerRetrieveRepository(
+    Apis.apis().getRegistryApi().registerRetrieveRepository(
         'eliud_pkg_fundamentals_model',
         'presentations',
         ({String? appId}) => presentationRepository(appId: appId)!);
-    Apis.apis().registerRetrieveRepository(
+    Apis.apis().getRegistryApi().registerRetrieveRepository(
         'eliud_pkg_fundamentals_model',
         'simpleImages',
         ({String? appId}) => simpleImageRepository(appId: appId)!);
-    Apis.apis().registerRetrieveRepository(
+    Apis.apis().getRegistryApi().registerRetrieveRepository(
         'eliud_pkg_fundamentals_model',
         'simpleTexts',
         ({String? appId}) => simpleTextRepository(appId: appId)!);
-    Apis.apis().registerRetrieveRepository(
+    Apis.apis().getRegistryApi().registerRetrieveRepository(
         'eliud_pkg_fundamentals_model',
         'tutorials',
         ({String? appId}) => tutorialRepository(appId: appId)!);

@@ -15,10 +15,10 @@
 
 import 'package:collection/collection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eliud_core/core/base/model_base.dart';
+import 'package:eliud_core_helpers/base/model_base.dart';
 
-import 'package:eliud_core/model/abstract_repository_singleton.dart';
-import 'package:eliud_core/model/model_export.dart';
+import 'package:eliud_core_main/model/abstract_repository_singleton.dart';
+import 'package:eliud_core_main/model/model_export.dart';
 import 'package:eliud_pkg_fundamentals_model/model/entity_export.dart';
 
 import 'package:eliud_pkg_fundamentals_model/model/grid_entity.dart';

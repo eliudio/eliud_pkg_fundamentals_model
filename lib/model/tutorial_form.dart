@@ -13,21 +13,21 @@
 
 */
 
-import 'package:eliud_core_model/model/app_model.dart';
-import 'package:eliud_core/core/blocs/access/state/access_state.dart';
-import 'package:eliud_core/core/blocs/access/access_bloc.dart';
+import 'package:eliud_core_main/model/app_model.dart';
 import '../tools/bespoke_models.dart';
-import 'package:eliud_core/core/navigate/router.dart' as eliudrouter;
-import 'package:eliud_core/tools/screen_size.dart';
+import 'package:eliud_core_main/apis/action_api/action_model.dart';
+
+import 'package:eliud_core_main/apis/apis.dart';
+
+import 'package:eliud_core_helpers/etc/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:eliud_core_model/style/style_registry.dart';
-
+import 'package:eliud_core_main/apis/style/style_registry.dart';
 import 'package:eliud_pkg_fundamentals_model/model/embedded_component.dart';
 
-import 'package:eliud_core/tools/enums.dart';
+import 'package:eliud_core_helpers/etc/enums.dart';
 
-import 'package:eliud_core/model/model_export.dart';
+import 'package:eliud_core_main/model/model_export.dart';
 import 'package:eliud_pkg_fundamentals_model/model/model_export.dart';
 
 import 'package:eliud_pkg_fundamentals_model/model/tutorial_list_bloc.dart';
@@ -131,7 +131,6 @@ class _MyTutorialFormState extends State<_MyTutorialForm> {
 
   @override
   Widget build(BuildContext context) {
-    var accessState = AccessBloc.getState(context);
     return BlocBuilder<TutorialFormBloc, TutorialFormState>(
         builder: (context, state) {
       if (state is TutorialFormUninitialized) {
@@ -178,7 +177,7 @@ class _MyTutorialFormState extends State<_MyTutorialForm> {
             .textFormField(widget.app, context,
                 labelText: 'Name',
                 icon: Icons.text_format,
-                readOnly: _readOnly(accessState, state),
+                readOnly: _readOnly(context, state),
                 textEditingController: _nameController,
                 keyboardType: TextInputType.text,
                 validator: (_) =>
@@ -191,7 +190,7 @@ class _MyTutorialFormState extends State<_MyTutorialForm> {
             .textFormField(widget.app, context,
                 labelText: 'Title',
                 icon: Icons.text_format,
-                readOnly: _readOnly(accessState, state),
+                readOnly: _readOnly(context, state),
                 textEditingController: _titleController,
                 keyboardType: TextInputType.text,
                 validator: (_) =>
@@ -204,7 +203,7 @@ class _MyTutorialFormState extends State<_MyTutorialForm> {
             .textFormField(widget.app, context,
                 labelText: 'Description',
                 icon: Icons.text_format,
-                readOnly: _readOnly(accessState, state),
+                readOnly: _readOnly(context, state),
                 textEditingController: _descriptionController,
                 keyboardType: TextInputType.text,
                 validator: (_) => state is DescriptionTutorialFormError
@@ -260,7 +259,7 @@ class _MyTutorialFormState extends State<_MyTutorialForm> {
                 widget.app,
                 context,
                 label: 'Submit',
-                onPressed: _readOnly(accessState, state)
+                onPressed: _readOnly(context, state)
                     ? null
                     : () {
                         if (state is TutorialFormError) {
@@ -292,8 +291,9 @@ class _MyTutorialFormState extends State<_MyTutorialForm> {
                             )));
                           }
                           if (widget.submitAction != null) {
-                            eliudrouter.Router.navigateTo(
-                                context, widget.submitAction!);
+                            Apis.apis()
+                                .getRouterApi()
+                                .navigateTo(context, widget.submitAction!);
                           } else {
                             Navigator.pop(context);
                           }
@@ -362,9 +362,11 @@ class _MyTutorialFormState extends State<_MyTutorialForm> {
   }
 
   /// Is the form read-only?
-  bool _readOnly(AccessState accessState, TutorialFormInitialized state) {
+  bool _readOnly(BuildContext context, TutorialFormInitialized state) {
     return (formAction == FormAction.showData) ||
         (formAction == FormAction.showPreloadedData) ||
-        (!accessState.memberIsOwner(widget.app.documentID));
+        (!Apis.apis()
+            .getCoreApi()
+            .memberIsOwner(context, widget.app.documentID));
   }
 }

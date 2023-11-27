@@ -1,16 +1,17 @@
-import 'package:eliud_core/core/blocs/access/access_bloc.dart';
-import 'package:eliud_core/core/blocs/access/state/access_determined.dart';
-import 'package:eliud_core/core/blocs/access/state/access_state.dart';
-import 'package:eliud_core_model/model/app_model.dart';
-import 'package:eliud_core_model/model/background_model.dart';
-import 'package:eliud_core/model/member_model.dart';
-import 'package:eliud_core_model/style/frontend/has_button.dart';
-import 'package:eliud_core_model/style/frontend/has_progress_indicator.dart';
-import 'package:eliud_core/tools/router_builders.dart';
-import 'package:eliud_pkg_fundamentals_model/model/document_item_model.dart';
+import 'package:eliud_core/access/access_bloc.dart';
+import 'package:eliud_core/access/state/access_determined.dart';
+import 'package:eliud_core/access/state/access_state.dart';
+import 'package:eliud_core_main/model/app_model.dart';
+import 'package:eliud_core_main/model/background_model.dart';
+import 'package:eliud_core_main/model/member_model.dart';
+import 'package:eliud_core_main/apis/style/frontend/has_button.dart';
+import 'package:eliud_core_main/apis/style/frontend/has_progress_indicator.dart';
 import 'package:eliud_pkg_fundamentals_model/tools/document_renderer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:eliud_core_main/tools/route_builders/route_builders.dart';
+
+import '../model/document_item_model.dart';
 
 typedef DocumentTextFieldTrigger = Function(String value);
 

@@ -13,21 +13,21 @@
 
 */
 
-import 'package:eliud_core_model/model/app_model.dart';
-import 'package:eliud_core/core/blocs/access/state/access_state.dart';
-import 'package:eliud_core/core/blocs/access/access_bloc.dart';
+import 'package:eliud_core_main/model/app_model.dart';
 import '../tools/bespoke_models.dart';
-import 'package:eliud_core/core/navigate/router.dart' as eliudrouter;
-import 'package:eliud_core/tools/screen_size.dart';
+import 'package:eliud_core_main/apis/action_api/action_model.dart';
+
+import 'package:eliud_core_main/apis/apis.dart';
+
+import 'package:eliud_core_helpers/etc/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:eliud_core_model/style/style_registry.dart';
-
+import 'package:eliud_core_main/apis/style/style_registry.dart';
 import 'package:eliud_pkg_fundamentals_model/model/embedded_component.dart';
 
-import 'package:eliud_core/tools/enums.dart';
+import 'package:eliud_core_helpers/etc/enums.dart';
 
-import 'package:eliud_core/model/model_export.dart';
+import 'package:eliud_core_main/model/model_export.dart';
 import 'package:eliud_pkg_fundamentals_model/model/model_export.dart';
 
 import 'package:eliud_pkg_fundamentals_model/model/booklet_list_bloc.dart';
@@ -127,7 +127,6 @@ class _MyBookletFormState extends State<_MyBookletForm> {
 
   @override
   Widget build(BuildContext context) {
-    var accessState = AccessBloc.getState(context);
     return BlocBuilder<BookletFormBloc, BookletFormState>(
         builder: (context, state) {
       if (state is BookletFormUninitialized) {
@@ -172,7 +171,7 @@ class _MyBookletFormState extends State<_MyBookletForm> {
             .textFormField(widget.app, context,
                 labelText: 'Description',
                 icon: Icons.text_format,
-                readOnly: _readOnly(accessState, state),
+                readOnly: _readOnly(context, state),
                 textEditingController: _descriptionController,
                 keyboardType: TextInputType.text,
                 validator: (_) =>
@@ -255,7 +254,7 @@ class _MyBookletFormState extends State<_MyBookletForm> {
                 widget.app,
                 context,
                 label: 'Submit',
-                onPressed: _readOnly(accessState, state)
+                onPressed: _readOnly(context, state)
                     ? null
                     : () {
                         if (state is BookletFormError) {
@@ -283,8 +282,9 @@ class _MyBookletFormState extends State<_MyBookletForm> {
                             )));
                           }
                           if (widget.submitAction != null) {
-                            eliudrouter.Router.navigateTo(
-                                context, widget.submitAction!);
+                            Apis.apis()
+                                .getRouterApi()
+                                .navigateTo(context, widget.submitAction!);
                           } else {
                             Navigator.pop(context);
                           }
@@ -343,9 +343,11 @@ class _MyBookletFormState extends State<_MyBookletForm> {
   }
 
   /// Is the form read-only?
-  bool _readOnly(AccessState accessState, BookletFormInitialized state) {
+  bool _readOnly(BuildContext context, BookletFormInitialized state) {
     return (formAction == FormAction.showData) ||
         (formAction == FormAction.showPreloadedData) ||
-        (!accessState.memberIsOwner(widget.app.documentID));
+        (!Apis.apis()
+            .getCoreApi()
+            .memberIsOwner(context, widget.app.documentID));
   }
 }

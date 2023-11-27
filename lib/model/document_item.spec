@@ -48,5 +48,5 @@
     "title": "ImageHelper.getImageFromPlatformModel(platformMediumModel: value.image!, width: fullScreenWidth(context))",
     "subTitle": "value.reference != null ? Center(child: StyleRegistry.registry().styleWithApp(app).frontEndStyle().textStyle().text(app, context, value.reference!)) : Container()"
   },
-  "depends": ["eliud_core"]
+  "depends": ["eliud_core_main"]
 }

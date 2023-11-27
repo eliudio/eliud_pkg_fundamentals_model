@@ -24,7 +24,7 @@ import '../model/presentation_repository.dart';
 import '../model/simple_image_repository.dart';
 import '../model/simple_text_repository.dart';
 import '../model/tutorial_repository.dart';
-import 'package:eliud_core/package/package.dart';
+import 'package:eliud_core_main/tools/etc/member_collection_info.dart';
 
 BookletRepository? bookletRepository({String? appId}) =>
     AbstractRepositorySingleton.singleton.bookletRepository(appId);
