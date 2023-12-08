@@ -1,9 +1,8 @@
 ---
 name: eliud_pkg_fundamentals_model
-description: eliud_pkg_feed is a package to provide fundamental gui components to
-  your eliud app. More info at https://eliud.io
+description: eliud_pkg_fundamentals_model is the model package for the package eliud_pkg_fundamentals. More info at https://eliud.io
 homepage: https://eliud.io
-repository: https://github.com/eliudio/eliud_pkg_fundamentals
+repository: https://github.com/eliudio/eliud_pkg_fundamentals_model
 version: 1.0.0
 environment:
   sdk: '>=2.17.0 <4.0.0'
@@ -18,6 +17,8 @@ dependencies:
     path: ../eliud_core_helpers
   eliud_core_model:
     path: ../eliud_core_model
+  eliud_core_main:
+    path: ../eliud_core_main
   eliud_pkg_medium:
     path: ../eliud_pkg_medium
   equatable: ^2.0.5

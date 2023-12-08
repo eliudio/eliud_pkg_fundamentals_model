@@ -16,44 +16,25 @@
 import 'package:eliud_core_helpers/etc/random.dart';
 import 'package:eliud_core_helpers/helpers/common_tools.dart';
 import 'package:eliud_core_helpers/query/query_tools.dart';
-import 'package:eliud_core_main/model/app_model.dart';
 
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../model/document_item_list_bloc.dart';
-import '../model/document_item_list.dart';
-import '../model/document_item_list_event.dart';
 import '../model/document_item_model.dart';
 import '../model/document_item_entity.dart';
 import '../model/document_item_repository.dart';
 
-import '../model/link_list_bloc.dart';
-import '../model/link_list.dart';
-import '../model/link_list_event.dart';
 import '../model/link_model.dart';
 import '../model/link_entity.dart';
 import '../model/link_repository.dart';
 
-import '../model/listed_item_list_bloc.dart';
-import '../model/listed_item_list.dart';
-import '../model/listed_item_list_event.dart';
 import '../model/listed_item_model.dart';
 import '../model/listed_item_entity.dart';
 import '../model/listed_item_repository.dart';
 
-import '../model/section_list_bloc.dart';
-import '../model/section_list.dart';
-import '../model/section_list_event.dart';
 import '../model/section_model.dart';
 import '../model/section_entity.dart';
 import '../model/section_repository.dart';
 
-import '../model/tutorial_entry_list_bloc.dart';
-import '../model/tutorial_entry_list.dart';
-import '../model/tutorial_entry_list_event.dart';
 import '../model/tutorial_entry_model.dart';
 import '../model/tutorial_entry_entity.dart';
 import '../model/tutorial_entry_repository.dart';
@@ -64,126 +45,7 @@ typedef ListedItemListChanged = Function(List<ListedItemModel> values);
 typedef SectionListChanged = Function(List<SectionModel> values);
 typedef TutorialEntryListChanged = Function(List<TutorialEntryModel> values);
 
-documentItemsList(app, context, value, trigger) =>
-    EmbeddedComponentFactory.documentItemsList(app, context, value, trigger);
-linksList(app, context, value, trigger) =>
-    EmbeddedComponentFactory.linksList(app, context, value, trigger);
-listedItemsList(app, context, value, trigger) =>
-    EmbeddedComponentFactory.listedItemsList(app, context, value, trigger);
-sectionsList(app, context, value, trigger) =>
-    EmbeddedComponentFactory.sectionsList(app, context, value, trigger);
-tutorialEntrysList(app, context, value, trigger) =>
-    EmbeddedComponentFactory.tutorialEntrysList(app, context, value, trigger);
-
-class EmbeddedComponentFactory {
-/* 
- * documentItemsList function to construct a list of DocumentItemModel
- */
-  static Widget documentItemsList(AppModel app, BuildContext context,
-      List<DocumentItemModel> values, DocumentItemListChanged trigger) {
-    DocumentItemInMemoryRepository inMemoryRepository =
-        DocumentItemInMemoryRepository(
-      trigger,
-      values,
-    );
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<DocumentItemListBloc>(
-          create: (context) => DocumentItemListBloc(
-            documentItemRepository: inMemoryRepository,
-          )..add(LoadDocumentItemList()),
-        )
-      ],
-      child: DocumentItemListWidget(app: app, isEmbedded: true),
-    );
-  }
-
-/* 
- * linksList function to construct a list of LinkModel
- */
-  static Widget linksList(AppModel app, BuildContext context,
-      List<LinkModel> values, LinkListChanged trigger) {
-    LinkInMemoryRepository inMemoryRepository = LinkInMemoryRepository(
-      trigger,
-      values,
-    );
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<LinkListBloc>(
-          create: (context) => LinkListBloc(
-            linkRepository: inMemoryRepository,
-          )..add(LoadLinkList()),
-        )
-      ],
-      child: LinkListWidget(app: app, isEmbedded: true),
-    );
-  }
-
-/* 
- * listedItemsList function to construct a list of ListedItemModel
- */
-  static Widget listedItemsList(AppModel app, BuildContext context,
-      List<ListedItemModel> values, ListedItemListChanged trigger) {
-    ListedItemInMemoryRepository inMemoryRepository =
-        ListedItemInMemoryRepository(
-      trigger,
-      values,
-    );
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<ListedItemListBloc>(
-          create: (context) => ListedItemListBloc(
-            listedItemRepository: inMemoryRepository,
-          )..add(LoadListedItemList()),
-        )
-      ],
-      child: ListedItemListWidget(app: app, isEmbedded: true),
-    );
-  }
-
-/* 
- * sectionsList function to construct a list of SectionModel
- */
-  static Widget sectionsList(AppModel app, BuildContext context,
-      List<SectionModel> values, SectionListChanged trigger) {
-    SectionInMemoryRepository inMemoryRepository = SectionInMemoryRepository(
-      trigger,
-      values,
-    );
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<SectionListBloc>(
-          create: (context) => SectionListBloc(
-            sectionRepository: inMemoryRepository,
-          )..add(LoadSectionList()),
-        )
-      ],
-      child: SectionListWidget(app: app, isEmbedded: true),
-    );
-  }
-
-/* 
- * tutorialEntrysList function to construct a list of TutorialEntryModel
- */
-  static Widget tutorialEntrysList(AppModel app, BuildContext context,
-      List<TutorialEntryModel> values, TutorialEntryListChanged trigger) {
-    TutorialEntryInMemoryRepository inMemoryRepository =
-        TutorialEntryInMemoryRepository(
-      trigger,
-      values,
-    );
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<TutorialEntryListBloc>(
-          create: (context) => TutorialEntryListBloc(
-            tutorialEntryRepository: inMemoryRepository,
-          )..add(LoadTutorialEntryList()),
-        )
-      ],
-      child: TutorialEntryListWidget(app: app, isEmbedded: true),
-    );
-  }
-}
+class EmbeddedComponentFactory {}
 
 /* 
  * DocumentItemInMemoryRepository is an in memory implementation of DocumentItemRepository

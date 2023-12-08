@@ -78,9 +78,6 @@ class ComponentRegistry {
       "tutorials",
     ]);
 
-    Apis.apis().getRegistryApi().register(
-        componentName: "eliud_pkg_fundamentals_model_internalWidgets",
-        componentConstructor: ListComponentFactory());
     Apis.apis()
         .getRegistryApi()
         .addDropDownSupporter("booklets", DropdownButtonComponentFactory());
