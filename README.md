@@ -35,10 +35,12 @@ The "fundamentals" model package.
 <!-- dependencies -->
 
 ### Direct dependencies
+- [eliud_core_helpers](https://pub.dev/packages/eliud_core_helpers)
+- [eliud_core](https://pub.dev/packages/eliud_core)
 - [eliud_core_main](https://pub.dev/packages/eliud_core_main)
 
 ### Transitive dependencies
-- [eliud_core_helpers](https://pub.dev/packages/eliud_core_helpers)
+- [eliud_core_model](https://pub.dev/packages/eliud_core_model)
 
 ### Dev dependencies
 - [eliud_generator](https://pub.dev/packages/eliud_generator)
